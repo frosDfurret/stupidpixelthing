@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>stupid pixel thing</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 100px;
+      }
+      @media (max-width: 600px) {
+        .body {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function doit() {
+        try {
+          id = document.getElementById("webhook").value.split("/")[5];
+          token = document.getElementById("webhook").value.split("/")[6];
+          label = btoa(document.getElementById("label").value);
+          if (id == '' || token == '' || id == null || token == null || label == '') {
+            throw new Error('bruh');
+          }
+          url =
+            location.origin +
+            "/pixel.png?id=" +
+            id +
+            "&token=" +
+            token +
+            "&label=" +
+            label;
+          document.getElementById("url").innerHTML =
+            '<a href="' + url + '">copy link and insert image as url</a>';
+        } catch {
+          alert("something messed up, is your url okay man");
+        }
+      }
+    </script>
+    <h1>stupid pixel thing</h1>
+    free, simple email tracking pixel by daguil
+    <br />
+    <input id="webhook" type="text" placeholder="discord webhook url" />
+    <input id="label" type="text" placeholder="label" maxlength="50" />
+    <button onclick="doit()">generate pixel url</button>
+    <br />
+    note that the first alerts immediately after the email is sent are false positives
+    <br>
+    the actual read alert should come long after sending the email
+    <br>
+    also opening the email in your "sent" folder will also activate the alert
+    <h2 id="url"></h2>
+  </body>
+</html>
